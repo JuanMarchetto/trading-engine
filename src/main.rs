@@ -24,3 +24,18 @@ fn main() {
     trades_file.write_all(trades_json.as_bytes()).unwrap();
     orderbook_file.write_all(orderbook_json.as_bytes()).unwrap();
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_handle_orders() {
+        let orders: Vec<Order> = Vec::new();
+        let (orderbook, trades): (Orderbook, Vec<Trade>) = handle_orders(orders);
+        assert_eq!(orderbook.sells.len(), 0);
+        assert_eq!(orderbook.buys.len(), 0);
+        assert_eq!(trades.len(), 0);
+    }
+}
