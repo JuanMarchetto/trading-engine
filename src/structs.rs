@@ -14,17 +14,17 @@ pub struct Order {
     pub pair: String,
     #[serde(deserialize_with = "de_f64_from_str")]
     pub limit_price: f64,
-    pub side: String
+    pub side: String,
 }
 
 #[derive(Serialize)]
 pub struct Orderbook {
     pub sells: Vec<Order>,
-    pub buys: Vec<Order>
+    pub buys: Vec<Order>,
 }
 
 #[derive(Serialize)]
 pub struct Trade {
     pub sell: Order,
-    pub buy: Order
+    pub buy: Order,
 }

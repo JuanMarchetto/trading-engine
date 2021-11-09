@@ -1,7 +1,10 @@
 use crate::structs::{Order, Orderbook, Trade};
 
 pub fn handle_orders(orders: Vec<Order>) -> (Orderbook, Vec<Trade>) {
-    let mut orderbook = Orderbook { sells: vec![], buys: vec![] };
+    let mut orderbook = Orderbook {
+        sells: vec![],
+        buys: vec![],
+    };
     let mut trades = vec![];
     orders.into_iter().for_each(|order| {
         match order.side.as_str() {
@@ -17,12 +20,15 @@ pub fn handle_orders(orders: Vec<Order>) -> (Orderbook, Vec<Trade>) {
                     }
                 }
                 if found_buy {
-                    let trade = Trade { sell: order, buy: orderbook.buys.pop().unwrap() };
+                    let trade = Trade {
+                        sell: order,
+                        buy: orderbook.buys.pop().unwrap(),
+                    };
                     trades.push(trade);
                 } else {
                     orderbook.sells.push(order);
                 }
-            },
+            }
             "BUY" => {
                 // IF there is a sell order with the same price or lower,
                 // then we have a trade
@@ -35,13 +41,16 @@ pub fn handle_orders(orders: Vec<Order>) -> (Orderbook, Vec<Trade>) {
                     }
                 }
                 if found_sell {
-                    let trade = Trade { sell: orderbook.sells.pop().unwrap(), buy: order };
+                    let trade = Trade {
+                        sell: orderbook.sells.pop().unwrap(),
+                        buy: order,
+                    };
                     trades.push(trade);
                 } else {
                     orderbook.buys.push(order);
                 }
-            },
-            _ => panic!("unknown side: {}", order.side)
+            }
+            _ => panic!("unknown side: {}", order.side),
         }
     });
     (orderbook, trades)
