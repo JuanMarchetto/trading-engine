@@ -25,32 +25,31 @@ fn main() {
     orderbook_file.write_all(orderbook_json.as_bytes()).unwrap();
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
-
     #[test]
     fn test_handle_orders() {
         let orders = vec![
-                Order {
-                    type_op: "CREATE".to_string(),
-                    account_id: 1,
-                    amount: 0.00230,
-                    order_id: 1,
-                    pair: "BTC/USDC".to_string(),
-                    limit_price: 63500.00,
-                    side: "SELL".to_string()
-                },
-                Order {
-                    type_op: "CREATE".to_string(),
-                    account_id: 2,
-                    amount: 0.00230,
-                    order_id: 2,
-                    pair: "BTC/USDC".to_string(),
-                    limit_price: 63500.00,
-                    side:"BUY".to_string()
-                }];
+            Order {
+                type_op: "CREATE".to_string(),
+                account_id: 1,
+                amount: 0.00230,
+                order_id: 1,
+                pair: "BTC/USDC".to_string(),
+                limit_price: 63500.00,
+                side: "SELL".to_string(),
+            },
+            Order {
+                type_op: "CREATE".to_string(),
+                account_id: 2,
+                amount: 0.00230,
+                order_id: 2,
+                pair: "BTC/USDC".to_string(),
+                limit_price: 63500.00,
+                side: "BUY".to_string(),
+            },
+        ];
         let (orderbook, trades): (Orderbook, Vec<Trade>) = handle_orders(orders);
         assert_eq!(orderbook.sells.len(), 0);
         assert_eq!(orderbook.buys.len(), 0);
