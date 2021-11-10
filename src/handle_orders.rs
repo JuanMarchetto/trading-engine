@@ -32,7 +32,7 @@ pub fn handle_orders(orders: Vec<Order>) -> (Orderbook, Vec<Trade>) {
             "BUY" => {
                 // IF there is a sell order with the same price or lower,
                 // then we have a trade
-                // else we add the order to the buys to the buys side of the orderbook
+                // else we add the order to the buys side of the orderbook
                 let mut found_sell = false;
                 for sell in orderbook.sells.iter() {
                     if sell.limit_price <= order.limit_price {
