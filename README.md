@@ -14,7 +14,7 @@ cargo run
 cargo test
 ```
 
-## Run test
+## Build project
 
 ```console
 cargo build --release
